@@ -1,69 +1,50 @@
-#include <iostream>
-  
-using namespace std; 
+class Solution {
+public:
+    int romanToInt(string s)
+    {
+        int n = int (s.length());
+        int result = 0;
+        
+        for (int i = 0; i < n; i++)
+        {
+            switch (s[i])
+            {
+                case 'I':
+                    result += 1;
+                    break;
+                case 'V':
+                    result += 5;
+                    break;
+                case 'X':
+                    result += 10;
+                    break;
+                case 'L':
+                    result += 50;
+                    break;
+                case 'C':
+                    result += 100;
+                    break;
+                case 'D':
+                    result += 500;
+                    break;
+                case 'M':
+                    result += 1000;
+                    break;
+            }        
+            if (s[i] == 'I' && (s[i + 1] == 'V' || s[i + 1] == 'X'))
+            {
+                result -= 2;
+            }
+            if (s[i] == 'X' && (s[i + 1] == 'L' || s[i + 1] == 'C'))
+            {
+                result -= 20;
+            }
+            if (s[i] == 'C' && (s[i + 1] == 'D' || s[i + 1] == 'M'))
+            {
+                result -= 200;
+            }
+        }
 
-int roman_to_integer(string rstr)
-{
-    int n = int(rstr.length());
-    if (0 == n)
-	{
-        return 0;
+        return result;
     }
-	
-    int result = 0;
-    for (int i = 0; i < n; i++)
-	{
-        switch (rstr[i])
-		{
-            case 'I':
-                result += 1;
-                break;
-            case 'V':
-                result += 5;
-                break;
-            case 'X':
-                result += 10;
-                break;
-            case 'L':
-                result += 50;
-                break;
-            case 'C':
-                result += 100;
-                break;
-            case 'D':
-                result += 500;
-                break;
-            case 'M':
-                result += 1000;
-                break;
-        }
-    }
-	
-    for (int i = 1; i < n; i++)
-	{
-        if ((rstr[i] == 'V' || rstr[i] == 'X') && rstr[i - 1] == 'I')
-		{
-            result -= 1 + 1;
-        }
-		
-        if ((rstr[i] == 'L' || rstr[i] == 'C') && rstr[i - 1] == 'X')
-		{
-            result -= 10 + 10;
-        }
-		
-        if ((rstr[i] == 'D' || rstr[i] == 'M') && rstr[i - 1] == 'C')
-		{
-            result -= 100 + 100;
-        }
-	}
-   return result;
-}
-  
-int main()  
-{
-	string n;
-    cin >> n;
-    cout << roman_to_integer (n);
-
-    return 0;  
-}  
+};
